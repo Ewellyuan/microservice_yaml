@@ -1,0 +1,89 @@
+##################################################################################################
+# math service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-math
+  labels:
+    app: service-math
+spec:
+  ports:
+  - port: 8080
+    name: http
+  selector:
+    app: service-math
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service-math-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-math
+        version: v1
+    spec:
+      containers:
+      - name: service-math
+        image: service_math_v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service-math-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-math
+        version: v2
+    spec:
+      containers:
+      - name: service-math
+        image: service_math_v2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+---
+##################################################################################################
+# call service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-call
+  labels:
+    app: service-call
+spec:
+  ports:
+  - port: 9090
+    name: http
+  selector:
+    app: service-call
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service-call-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-call
+        version: v1
+    spec:
+      containers:
+      - name: service-call
+        image: service_call_v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9090
+---
