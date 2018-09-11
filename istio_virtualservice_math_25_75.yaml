@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service-math
+spec:
+  hosts:
+    - service-math
+  http:
+  - route:
+    - destination:
+        host: service-math
+        subset: v1
+      weight: 25
+    - destination:
+        host: service-math
+        subset: v2
+      weight: 75
