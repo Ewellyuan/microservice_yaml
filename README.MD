@@ -25,6 +25,6 @@ kubectl scale deployment service-string-v1 --replicas 3
 kubectl scale deployment service-string-v1 --replicas 1
 
 ### Step 8.
-virtual service
+apply virtual service
 
 ### Step 9.
